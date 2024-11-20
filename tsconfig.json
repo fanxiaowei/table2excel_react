@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ESNext", // 指定 ECMAScript 目标版本，ESNext 表示最新版本
+    "useDefineForClassFields": true, // 启用新的类字段语义
+    "lib": ["DOM", "DOM.Iterable", "WebWorker", "ESNext"], // 编译过程中包含的库文件
+    "allowJs": false, // 不允许编译 JavaScript 文件
+    "skipLibCheck": true, // 跳过库文件的类型检查
+    "esModuleInterop": false, // 禁用 ES 模块间的互操作性
+    "allowSyntheticDefaultImports": true, // 允许从没有默认导出的模块中默认导入
+    "strict": false, // 禁用所有严格类型检查选项
+    "forceConsistentCasingInFileNames": true, // 强制文件名大小写一致
+    "module": "ESNext", // 指定生成代码的模块系统，ESNext 为最新模块标准
+    "moduleResolution": "Node", // 模块解析策略，Node 用于 Node.js
+    "resolveJsonModule": true, // 允许导入 JSON 模块
+    "isolatedModules": true, // 每个文件都作为单独的模块
+    "noEmit": true, // 不输出文件
+    "jsx": "react-jsx", // 指定 JSX 代码的编译方式
+    "downlevelIteration": true, // 支持较低版本的迭代器特性
+    "allowImportingTsExtensions": true, // 允许导入 `.ts` 扩展名的文件
+    "baseUrl": ".", // 解析非相对模块的基准目录
+    "noImplicitAny": false,
+    "paths": { // 设置路径映射
+      "@/*": ["src/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@assets/*": ["src/assets/*"],
+      "@utils/*": ["src/utils/*"],
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/pages/*"],
+      "@api/*": ["src/api/*"],
+      "@network/*": ["src/services/*"]
+    }
+  },
+  "include": ["./src", "*.d.ts"], // 包含的文件或目录
+  "files": ["index.d.ts"] // 包含的独立文件列表
+}
