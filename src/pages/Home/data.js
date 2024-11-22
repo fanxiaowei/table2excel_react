@@ -1,6 +1,6 @@
 
 
-export const staticTable  = {
+export const staticTable = {  
     "columns":[
       {
         "title": "A前端",
@@ -9,7 +9,7 @@ export const staticTable  = {
       },
       {
         "title": "B柒八九",
-        "width": 100,
+        "width": "50",
         "dataIndex": "b"
       },
       {
@@ -19,37 +19,44 @@ export const staticTable  = {
       },
        {
         "title": "D南蓁",
-        "width": 100,
+        "width": "500px",
         "dataIndex": "d"
       }
     ],
     "source":[
       {
-      "a": "a1",
+      "a": 1,
       "b": "b1",
       "c": "c1",
       "d": "专注于前端开发技术,Rust及AI应用知识分享"
       },
       {
-      "a": "a2",
+      "a": 2,
       "b": "b2",
       "c": "c2",
       "d": "专注于前端开发技术,Rust及AI应用知识分享"
       },
       {
-      "a": "a3",
+      "a": 3,
       "b": "b3",
       "c": "c3",
       "d": "专注于前端开发技术,Rust及AI应用知识分享"
       },
        {
-      "a": "a4",
+      "a": 4,
       "b": "b4",
       "c": "c4",
       "d": "专注于前端开发技术,Rust及AI应用知识分享"
       }
     ]
 }
+
+const sharedOnCell = (_, index) => {
+  if (index === 9) {
+    return { colSpan: 0 };
+  }
+  return {};
+};
   
 export const mergeTable = {
     "columns":[
@@ -57,25 +64,10 @@ export const mergeTable = {
         "title": "A前端",
         "width": 100,
         "dataIndex": "a",
-        "onCell": (record, index) => {
-          if(index === 0) {
+        onCell: (_, index) => { 
+          if (index == 9) { 
             return {
-              rowSpan: 7
-            }
-          }
-          if(index>0 && index<7) {
-            return {
-              rowSpan: 0
-            }
-          }
-          if(index==7) {
-            return {
-              rowSpan: 2
-            }
-          }
-          if(index>7&&index<9) {
-            return {
-              rowSpan: 0
+              colSpan:4
             }
           }
         }
@@ -84,38 +76,35 @@ export const mergeTable = {
         "title": "B柒八九",
         "width": 100,
         "dataIndex": "b",
-         "onCell": (record, index) => {
-          if(index === 0) {
-            return {
-              rowSpan: 3
-            }
-          }
-          if(index>0 && index<3) {
-            return {
-              rowSpan: 0
-            }
-          }
-          if(index==3) {
-            return {
-              rowSpan: 2
-            }
-          }
-          if(index>3&&index<5) {
-            return {
-              rowSpan: 0
-            }
-          }
-        }
+        onCell:sharedOnCell
       },
       {
         "title": "C北宸",
         "width": 100,
-        "dataIndex": "c"
+        "dataIndex": "c",
+        onCell:sharedOnCell
       },
        {
         "title": "D南蓁",
         "width": 100,
-        "dataIndex": "d"
+         "dataIndex": "d",
+         onCell: (_, index)=>{ 
+           if (index == 9) { 
+             return {
+              colSpan:0
+            }
+           }
+
+           if (index == 0) { 
+             return {
+               rowSpan:9
+             }
+           }
+           if (index > 0) { 
+             return {rowSpan:0}
+           }
+          return {};
+         }
       }
     ],
     "source":[
