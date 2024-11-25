@@ -18,6 +18,7 @@ const Home = () => {
 	const [columns, setColumns] = useState(mergeDynamicTable.columns);
 	const [source, setSource] = useState([]);
 	const [rowMergeMaps, setRowMergeMaps] = useState(new Map());
+	const [time, setTime] = useState(0);
 
 	const calculateRowMerge = useCallback(
 		(data: ListItem[], field: keyof ListItem, parentField?: keyof ListItem) => {
@@ -54,6 +55,13 @@ const Home = () => {
 		},
 		[],
 	);
+
+	useEffect(() => {
+		const initWasmInstance = async () => {
+			await init();
+		};
+		initWasmInstance();
+	}, []);
 
 	useEffect(() => {
 		const emulateAsync = async () => {
@@ -123,6 +131,16 @@ const Home = () => {
 		}
 	}, [source, rowMergeMaps]);
 
+	const handleExport4DynamicMerge = async () => {
+		const res = await generate_excel({
+			columns: mergeTable.columns,
+			source: mergeTable.source,
+			name: "front789",
+			correlation: ["a", "b"],
+		});
+		handleExcelBlob(res);
+	};
+
 	const handleExcelBlob = (res: Blob) => {
 		const blob = new Blob([res], {
 			type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,",
@@ -134,7 +152,6 @@ const Home = () => {
 		a.click();
 	};
 	const handleExport4Static = async () => {
-		await init();
 		const res = await generate_excel({
 			columns: staticTable.columns,
 			source: staticTable.source,
@@ -144,7 +161,6 @@ const Home = () => {
 		handleExcelBlob(res);
 	};
 	const handleExport4StaticMerge = async () => {
-		await init();
 		const res = await generate_excel({
 			columns: mergeTable.columns,
 			source: mergeTable.source,
@@ -175,40 +191,9 @@ const Home = () => {
 		handleExcelBlob(res);
 	};
 
-	const handleExport4DynamicMerge = async () => {
-		await init();
-		const res = await generate_excel({
-			columns: mergeTable.columns,
-			source: mergeTable.source,
-			name: "front789",
-			merge: [
-				{
-					from: {
-						column: 0,
-						row: 10,
-					},
-					to: {
-						column: 3,
-						row: 10,
-					},
-				},
-				{
-					from: {
-						column: 3,
-						row: 1,
-					},
-					to: {
-						column: 3,
-						row: 9,
-					},
-				},
-			],
-		});
-		handleExcelBlob(res);
-	};
 	return (
 		<section className="h-screen w-screen overflow-auto flex flex-col gap-10 p-20">
-			{/* <div className="flex flex-col gap-2">
+			<div className="flex flex-col gap-2">
 				<div className="flex items-center gap-5">
 					静态表格 <Button onClick={handleExport4Static}>导出</Button>
 				</div>
@@ -218,8 +203,8 @@ const Home = () => {
 					dataSource={staticTable.source}
 					pagination={false}
 				/>
-			</div> */}
-			{/* <div className="flex flex-col gap-2">
+			</div>
+			<div className="flex flex-col gap-2">
 				<div className="flex items-center gap-5">
 					静态表格合并 <Button onClick={handleExport4StaticMerge}>导出</Button>
 				</div>
@@ -229,7 +214,7 @@ const Home = () => {
 					dataSource={mergeTable.source}
 					pagination={false}
 				/>
-			</div> */}
+			</div>
 			<div className="flex flex-col gap-2">
 				<div className="flex items-center gap-5">
 					动态表格合并 <Button onClick={handleExport4DynamicMerge}>导出</Button>

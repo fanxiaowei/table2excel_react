@@ -9,7 +9,7 @@ export const staticTable = {
       },
       {
         "title": "B柒八九",
-        "width": "50",
+        "width": "150",
         "dataIndex": "b"
       },
       {
@@ -62,7 +62,7 @@ export const mergeTable = {
     "columns":[
       {
         "title": "A前端",
-        "width": 100,
+        "width": "100",
         "dataIndex": "a",
         onCell: (_, index) => { 
           if (index == 9) { 
@@ -74,7 +74,7 @@ export const mergeTable = {
       },
       {
         "title": "B柒八九",
-        "width": 100,
+        "width": "150",
         "dataIndex": "b",
         onCell:sharedOnCell
       },
@@ -86,7 +86,7 @@ export const mergeTable = {
       },
        {
         "title": "D南蓁",
-        "width": 100,
+        "width": 500,
          "dataIndex": "d",
          onCell: (_, index)=>{ 
            if (index == 9) { 
@@ -175,7 +175,7 @@ export const mergeDynamicTable = {
     "columns":[
       {
         "title": "A前端",
-        "width": 100,
+        "width": "110",
         "dataIndex": "a",
       },
       {
@@ -185,12 +185,12 @@ export const mergeDynamicTable = {
       },
       {
         "title": "C北宸",
-        "width": 100,
+        "width": 200,
         "dataIndex": "c",
       },
        {
         "title": "D南蓁",
-        "width": 100,
+        "width": "500px",
          "dataIndex": "d",
       }
     ],
