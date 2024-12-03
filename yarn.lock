@@ -1256,6 +1256,11 @@ execa@~8.0.1:
     signal-exit "^4.1.0"
     strip-final-newline "^3.0.0"
 
+f_table2excel@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/f_table2excel/-/f_table2excel-1.0.0.tgz#0863a57efd9d8e0cd126a5433daf6f8557fc8e11"
+  integrity sha512-3TPR5XRPEdEX+j11Mn1LiCW3DoR8r93+lzPElHlSB99pZ/GqMQUfU3rXj6ggWQJjeG0k/zBytoQdbMCJxnLd3g==
+
 fast-glob@^3.3.2:
   version "3.3.2"
   resolved "https://registry.npmmirror.com/fast-glob/-/fast-glob-3.3.2.tgz#a904501e57cfdd2ffcded45e99a54fef55e46129"
@@ -2529,6 +2534,7 @@ string-convert@^0.2.0:
   integrity sha512-u/1tdPl4yQnPBjnVrmdLo9gtuLvELKsAoRapekWggdiQNvvvum+jYF329d84NAa660KQw7pB2n36KrIKVoXa3A==
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0:
+  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.npmmirror.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==

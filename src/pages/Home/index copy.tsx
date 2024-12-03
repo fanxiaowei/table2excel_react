@@ -1,9 +1,7 @@
+import init, { generate_excel } from "@/wasm/table2excel";
 import { Button, Table } from "antd";
-// import init, { generate_excel } from "@/wasm/table2excel_vec";
-import init, { generate_excel } from "f_table2excel";
 import { useCallback, useEffect, useState } from "react";
 import { mergeDynamicTable, mergeTable, staticTable } from "./data.js";
-import json from "./data.json" with { type: "json" };
 
 export type ListItem = {
 	id?: string;
@@ -18,8 +16,9 @@ type RowSpanTuple = [number, number];
 const Home = () => {
 	const [columns, setColumns] = useState(mergeDynamicTable.columns);
 	const [source, setSource] = useState([]);
-	const [longSource, setLongSource] = useState(json.source);
-	const [rowMergeMaps, setRowMergeMaps] = useState(new Map());
+	const [rowMergeMaps, setRowMergeMaps] = useState<
+		Map<string, Map<string, RowSpanTuple>>
+	>(new Map());
 	const [time, setTime] = useState(0);
 
 	const calculateRowMerge = useCallback(
@@ -62,10 +61,7 @@ const Home = () => {
 	);
 
 	useEffect(() => {
-		const initWasmInstance = async () => {
-			await init();
-		};
-		initWasmInstance();
+		//省去部分代码
 	}, []);
 
 	useEffect(() => {
@@ -139,8 +135,8 @@ const Home = () => {
 	const handleExport4DynamicMerge = async () => {
 		const startTime = performance.now();
 		const res = await generate_excel({
-			columns: mergeDynamicTable.columns,
-			source: mergeDynamicTable.source,
+			columns: mergeTable.columns,
+			source: mergeTable.source,
 			name: "front789",
 			correlation: ["a", "b"],
 		});
@@ -153,113 +149,12 @@ const Home = () => {
 		handleExcelBlob(res);
 	};
 
-	const handleExcelBlob = (res: Uint8Array) => {
-		const blob = new Blob([res], {
-			type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,",
-		});
-		const a = document.createElement("a");
-		a.href = URL.createObjectURL(blob);
-		a.download = "data.xlsx";
-		document.body.append(a);
-		a.click();
-	};
-	const handleExport4Static = async () => {
-		const startTime = performance.now();
-		const res = await generate_excel({
-			columns: staticTable.columns,
-			source: staticTable.source,
-			name: "front789",
-		});
-		const endTime = performance.now();
-		const duration = endTime - startTime;
-		setTime(duration);
-		handleExcelBlob(res);
-	};
-
-	const handleExport4LongStatic = async () => {
-		const startTime = performance.now();
-		const res = await generate_excel({
-			columns: staticTable.columns,
-			source: longSource,
-			name: "front789",
-			merge: [],
-		});
-		const endTime = performance.now();
-		const duration = endTime - startTime;
-		setTime(duration);
-		handleExcelBlob(res);
-	};
-	const handleExport4StaticMerge = async () => {
-		const startTime = performance.now();
-		const res = await generate_excel({
-			columns: mergeTable.columns,
-			source: mergeTable.source,
-			name: "front789",
-			merge: [
-				{
-					from: {
-						column: 0,
-						row: 10,
-					},
-					to: {
-						column: 3,
-						row: 10,
-					},
-				},
-				{
-					from: {
-						column: 3,
-						row: 1,
-					},
-					to: {
-						column: 3,
-						row: 9,
-					},
-				},
-			],
-		});
-		const endTime = performance.now();
-		const duration = endTime - startTime;
-		setTime(duration);
-		handleExcelBlob(res);
+	const handleExcelBlob = (res: Blob) => {
+		//省去部分代码
 	};
 
 	return (
 		<section className="h-screen w-screen overflow-auto flex flex-col gap-10 p-20">
-			{/* <div className="flex flex-col gap-2">
-				<div className="flex items-center gap-5">
-					静态表格 <Button onClick={handleExport4Static}>导出</Button> <span>耗时：{time}ms</span>
-				</div>
-				<Table
-					columns={staticTable.columns}
-					bordered
-					dataSource={staticTable.source}
-					pagination={false}
-				/>
-			</div> */}
-			{/* <div className="flex flex-col gap-2">
-				<div className="flex items-center gap-5">
-					静态长表格 <Button onClick={handleExport4LongStatic}>导出</Button> <span>耗时：{time}ms</span>
-				</div>
-				<Table
-					columns={json.columns}
-					bordered
-					dataSource={json.source}
-					pagination={false}
-					virtual
-				/>
-			</div> */}
-			{/* <div className="flex flex-col gap-2">
-				<div className="flex items-center gap-5">
-					静态表格合并 <Button onClick={handleExport4StaticMerge}>导出</Button> <span>耗时：{time}ms</span>
-				</div>
-				<Table
-					columns={mergeTable.columns}
-					bordered
-					dataSource={mergeTable.source}
-					pagination={false}
-				/>
-			</div> */}
 			<div className="flex flex-col gap-2">
 				<div className="flex items-center gap-5">
 					动态表格合并 <Button onClick={handleExport4DynamicMerge}>导出</Button>{" "}

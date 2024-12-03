@@ -1,5 +1,3 @@
-
-
 export const staticTable = {  
     "columns":[
       {
@@ -158,7 +156,7 @@ export const mergeTable = {
       },
       {
       "a": "A2",
-      "b": "b1",
+      "b": "b2",
       "c": "c2",
       "d": "专注于前端开发技术,Rust及AI应用知识分享"
       },
@@ -175,7 +173,7 @@ export const mergeDynamicTable = {
     "columns":[
       {
         "title": "A前端",
-        "width": "110",
+        "width": "110px",
         "dataIndex": "a",
       },
       {
