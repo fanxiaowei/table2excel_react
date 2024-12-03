@@ -59,7 +59,10 @@
       "recommended": true,
       "a11y": {
 				"useKeyWithClickEvents": "off"
-			}
+			},
+      "style":{
+        "noParameterAssign": "off"
+      }
     }
   }
 }
